@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kevyn Calderón Pérez — Mechanical Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#1B1F23;
+    --panel:#242A30;
+    --panel-2:#2C333A;
+    --chalk:#F2EEE4;
+    --chalk-dim:#B3AFA4;
+    --safety:#FF5A1F;
+    --patina:#4F8A82;
+    --warn:#F4B93C;
+    --line:rgba(242,238,228,0.10);
+    --line-strong:rgba(242,238,228,0.22);
+    --accent: var(--safety);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--charcoal);
+    color:var(--chalk);
+    font-family:'Work Sans', sans-serif;
+    min-height:100vh;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:24px 20px 80px;}
+
+  /* ---- title block ---- */
+  .titleblock{
+    border:1.5px solid var(--line-strong);
+    background:var(--panel);
+    margin-bottom:18px;
+  }
+  .tb-top{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    padding:20px 22px 14px;
+    border-bottom:1px solid var(--line-strong);
+    gap:16px; flex-wrap:wrap;
+  }
+  .tb-name{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    font-size:clamp(26px,4vw,38px);
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    margin:0;
+    line-height:1.05;
+  }
+  .tb-role{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--accent);
+    font-size:13px;
+    letter-spacing:0.04em;
+    margin-top:6px;
+    transition:color .25s ease;
+  }
+  .tb-audio{
+    display:flex; align-items:center;
+    border:1px solid var(--line-strong);
+    background:var(--panel-2);
+    min-width:250px;
+  }
+  .tb-audio-empty{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--chalk-dim);
+    padding:14px 16px;
+    white-space:nowrap;
+  }
+  .tb-audio-empty .tb-audio-song{color:var(--accent);}
+  .tb-audio iframe{display:block; border:none;}
+
+  .tb-fields{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+  }
+  .tb-field{
+    padding:9px 14px;
+    border-right:1px solid var(--line);
+  }
+  .tb-field:last-child{border-right:none;}
+  .tb-field-label{color:var(--chalk-dim); letter-spacing:.05em;}
+  .tb-field-val{color:var(--chalk); margin-top:2px;}
+
+  /* ---- nav ---- */
+  nav{display:flex; gap:2px; margin-bottom:0; flex-wrap:wrap;}
+  .tab-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    background:var(--panel);
+    color:var(--chalk-dim);
+    border:1px solid var(--line-strong);
+    border-bottom:none;
+    padding:10px 16px;
+    cursor:pointer;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    transition:all .2s ease;
+  }
+  .tab-btn .num{color:var(--chalk-dim); margin-right:8px; opacity:.6;}
+  .tab-btn:hover{color:var(--chalk); background:var(--panel-2);}
+  .tab-btn.active{color:var(--chalk); background:var(--accent); border-color:var(--accent);}
+  .tab-btn.active .num{color:var(--chalk); opacity:.75;}
+
+  main{
+    border:1px solid var(--line-strong);
+    background:var(--panel);
+    padding:36px 32px;
+    min-height:420px;
+  }
+  .panel{display:none; animation:fade .35s ease;}
+  .panel.active{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
+
+  h2.section-title{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    font-size:22px;
+    letter-spacing:.03em;
+    margin:0 0 6px;
+    color:var(--accent);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--chalk-dim);
+    letter-spacing:.08em;
+    margin-bottom:18px;
+  }
+  p{line-height:1.65; color:var(--chalk); font-size:15px;}
+  .lede{font-size:17px; color:var(--chalk); max-width:640px;}
+  a{color:var(--accent);}
+  .pills{display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 4px;}
+  .pill{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    border:1px solid var(--line-strong);
+    padding:5px 10px;
+    color:var(--chalk-dim);
+  }
+  .pill.rank1{color:var(--safety); border-color:var(--safety);}
+  .pill.rank2{color:var(--patina); border-color:var(--patina);}
+  .pill.rank3{color:var(--chalk-dim);}
+
+  /* photo slots */
+  .photo-slot{
+    background-color:var(--panel-2);
+    background-size:cover; background-position:center;
+    border:1px dashed var(--line-strong);
+    aspect-ratio:4/3;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .photo-slot.has-photo{border-style:solid;}
+  .photo-slot.has-photo .photo-placeholder{display:none;}
+  .photo-placeholder{
+    text-align:center; padding:16px;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .ph-code{display:block; color:var(--accent); font-size:11px; letter-spacing:.08em; margin-bottom:6px;}
+  .ph-text{display:block; color:var(--chalk-dim); font-size:10.5px; line-height:1.5;}
+
+  .logo-row{display:flex; gap:16px; margin:22px 0; flex-wrap:wrap;}
+  .logo-slot{
+    background-color:var(--panel-2);
+    background-size:contain; background-position:center; background-repeat:no-repeat;
+    border:1px dashed var(--line-strong);
+    width:160px; height:110px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .logo-slot.has-photo{border-style:solid; background-color:transparent;}
+  .logo-slot.has-photo .photo-placeholder{display:none;}
+  @media (max-width:480px){ .logo-slot{width:100%;} }
+
+  /* caption inputs under multi-photo project grids */
+  .photo-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:16px;}
+  .photo-grid-item .photo-slot{aspect-ratio:4/3;}
+  .caption-line{
+    margin-top:8px; font-family:'IBM Plex Mono', monospace; font-size:11.5px;
+    color:var(--chalk-dim); border-bottom:1px dashed var(--line-strong);
+    padding-bottom:6px;
+  }
+  @media (max-width:640px){ .photo-grid{grid-template-columns:1fr;} }
+
+  /* project cards */
+  .project{
+    display:grid; grid-template-columns:220px 1fr; gap:24px;
+    padding:26px 0; border-top:1px solid var(--line);
+  }
+  .project:first-of-type{border-top:none; padding-top:6px;}
+  .project-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px;
+    color:var(--accent); letter-spacing:.08em; margin-bottom:8px;
+  }
+  .project h3{font-family:'Oswald', sans-serif; text-transform:uppercase; font-size:18px; margin:0 0 8px; letter-spacing:.02em;}
+  .project.project-wide{grid-template-columns:1fr;}
+  @media (max-width:640px){ .project{grid-template-columns:1fr;} }
+
+  /* get to know me — whimsy accent shift */
+  #panel-know .section-title{color:var(--warn);}
+  .fact-list{list-style:none; padding:0; margin:20px 0 0;}
+  .fact-list li{
+    padding:12px 0 12px 30px; border-bottom:1px solid var(--line);
+    position:relative; color:var(--chalk); font-size:15px; line-height:1.5;
+  }
+  .fact-list li::before{
+    content:"◆"; position:absolute; left:0; color:var(--warn); font-size:11px; top:15px;
+  }
+
+  /* contact */
+  .field-row{
+    display:flex; align-items:baseline; gap:10px;
+    font-family:'IBM Plex Mono', monospace; font-size:14px;
+    padding:12px 0; border-bottom:1px dashed var(--line-strong);
+  }
+  .field-key{color:var(--chalk-dim); width:110px; flex-shrink:0;}
+  .field-blank{color:var(--chalk-dim); flex:1; letter-spacing:.05em;}
+  .contact-note{margin-top:20px; color:var(--chalk-dim); font-size:13px;}
+
+  footer{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px; color:var(--chalk-dim);
+    text-align:center; margin-top:22px; opacity:.55; letter-spacing:.04em;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="titleblock">
+    <div class="tb-top">
+      <div>
+        <p class="tb-name">Kevyn Calderón Pérez</p>
+        <p class="tb-role" id="tb-role">Mechanical Engineering — Iowa State University</p>
+      </div>
+      <div class="tb-audio" id="tb-audio">
+        <div class="tb-audio-empty" id="audio-empty">🎵 <span class="tb-audio-song" id="audio-song">Dámaso</span> — add link, see README</div>
+        <iframe id="audio-frame" style="display:none" width="250" height="80" frameborder="0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      </div>
+    </div>
+    <div class="tb-fields">
+      <div class="tb-field"><div class="tb-field-label">SHEET</div><div class="tb-field-val" id="tb-sheet">01 OF 05</div></div>
+      <div class="tb-field"><div class="tb-field-label">TITLE</div><div class="tb-field-val" id="tb-title">WELCOME</div></div>
+      <div class="tb-field"><div class="tb-field-label">SCALE</div><div class="tb-field-val" id="tb-scale">1:1</div></div>
+      <div class="tb-field"><div class="tb-field-label">REV</div><div class="tb-field-val" id="tb-rev">A</div></div>
+    </div>
+  </div>
+
+  <nav id="tabs">
+    <button class="tab-btn active" data-tab="welcome"><span class="num">01</span>Welcome</button>
+    <button class="tab-btn" data-tab="background"><span class="num">02</span>My Story</button>
+    <button class="tab-btn" data-tab="projects"><span class="num">03</span>Projects</button>
+    <button class="tab-btn" data-tab="know"><span class="num">04</span>Get to Know Me</button>
+    <button class="tab-btn" data-tab="contact"><span class="num">05</span>Contact</button>
+  </nav>
+
+  <main>
+    <!-- WELCOME -->
+    <section class="panel active" id="panel-welcome">
+      <p class="eyebrow">SHEET 01 — WELCOME</p>
+      <h2 class="section-title">Hey, I'm Kevyn.</h2>
+      <p class="lede">Junior in Mechanical Engineering at Iowa State, first-gen college student, and someone who's happiest when a project involves both a spreadsheet and a pair of safety glasses. This site is my shop traveler — a running record of what I've built, where I've worked, and where I want to go next.</p>
+      <p>I'm most drawn to work that puts me in front of people — figuring out what they actually need and helping them get there. Sales engineering and manufacturing are where I'd love to land: sales for the people-facing problem-solving, manufacturing for the chance to work alongside the people actually running the floor and make their jobs easier. Design interests me too — genuinely, I think it's cool work — I just gravitate toward roles with less time behind a desk.</p>
+      <div class="pills">
+        <span class="pill rank1">Sales Engineering</span>
+        <span class="pill rank1">Manufacturing</span>
+        <span class="pill rank3">Design</span>
+      </div>
+      <p style="margin-top:24px; color:var(--chalk-dim); font-size:13px;">Use the tabs above to browse — Sheet 04 is where I let my guard down a little.</p>
+    </section>
+
+    <!-- BACKGROUND -->
+    <section class="panel" id="panel-background">
+      <p class="eyebrow">SHEET 02 — MY STORY</p>
+      <h2 class="section-title">First-gen, twice over.</h2>
+      <p class="lede">I'm a first-generation college student and a first-generation American, with Mexican and Guatemalan roots. I'm fluent in Spanish, and I care a lot about seeing more Latino and Hispanic students make it into — and through — higher ed. That's not a side interest; it shapes how I show up in every room I'm in.</p>
+
+      <div class="logo-row">
+        <div class="logo-slot" data-src="assets/images/al-exito-logo.png">
+          <div class="photo-placeholder"><span class="ph-code">LOGO — 01</span><span class="ph-text">assets/images/<br>al-exito-logo.png</span></div>
+        </div>
+        <div class="logo-slot" data-src="assets/images/shpe-logo.png">
+          <div class="photo-placeholder"><span class="ph-code">LOGO — 02</span><span class="ph-text">assets/images/<br>shpe-logo.png</span></div>
+        </div>
+      </div>
+
+      <p>As president of Al Éxito, I grew our average meeting attendance from a previous high of about 20 up to around 40, with our biggest meeting pulling in 60+ people. I've also served as sponsorship chair for SHPE, working directly with companies to keep our organization funded and connected.</p>
+      <p>On the technical side, I hold an OSHA-10 certification and have spent time on the floor of several plants across Nebraska and South Dakota — enough to know I like being where the work actually happens, not just where it gets planned.</p>
+      <p>I keep it professional in professional settings — but when I get to talk shop with another Hispanic or Latino engineer (which, in this field, is a rare occasion), the Spanglish comes out. It's one of my favorite parts of this work when it happens.</p>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="panel" id="panel-projects">
+      <p class="eyebrow">SHEET 03 — PROJECTS</p>
+      <h2 class="section-title">What I've built.</h2>
+
+      <div class="project">
+        <div class="photo-slot" data-src="assets/images/wind-turbine.jpg">
+          <div class="photo-placeholder"><span class="ph-code">IMG — 01</span><span class="ph-text">assets/images/<br>wind-turbine.jpg</span></div>
+        </div>
+        <div>
+          <p class="project-tag">MAIN PROJECT — SOLIDWORKS DESIGN COURSE</p>
+          <h3>Wind Turbine Build</h3>
+          <p>Designed and built a small wind turbine from the ground up. Our first pass used gears machined out of wood — they didn't hold up under load. I helped redesign and switch the drivetrain to a 3D-printed gear, which solved the problem and got the turbine turning reliably. First real lesson in "the material you picked is the design flaw."</p>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="photo-slot" data-src="assets/images/project-poster.jpg">
+          <div class="photo-placeholder"><span class="ph-code">IMG — 02</span><span class="ph-text">assets/images/<br>project-poster.jpg</span></div>
+        </div>
+        <div>
+          <p class="project-tag">PRESENTATION</p>
+          <h3>Wind Turbine Project Poster</h3>
+          <p>The summary poster from the wind turbine build — presented as part of the design course.</p>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="photo-slot" data-src="assets/images/cooler.jpg">
+          <div class="photo-placeholder"><span class="ph-code">IMG — 03</span><span class="ph-text">assets/images/<br>cooler.jpg</span></div>
+        </div>
+        <div>
+          <p class="project-tag">PLATINUM CRUSH</p>
+          <h3>Cooler Root-Cause Diagnosis</h3>
+          <p>Handed a clogged heat exchanger that cooled soybean oil with water. Instead of just clearing the clog, I traced the real problem upstream — the oil was being overheated before it ever reached the cooler. I proposed flushing the cooler with hot water through an existing bypass as a short-term fix. The team ended up solving it at the source by lowering the oil's heating temperature, which was the better fix — but getting to the right root cause first is the part I'm proud of.</p>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="photo-slot" data-src="assets/images/engine.jpg">
+          <div class="photo-placeholder"><span class="ph-code">IMG — 04</span><span class="ph-text">assets/images/<br>engine.jpg</span></div>
+        </div>
+        <div>
+          <p class="project-tag">ENGINE REBUILD — COMMUNITY COLLEGE COURSE, HIGH SCHOOL</p>
+          <h3>V8 Teardown & Rebuild</h3>
+          <p>Fully disassembled and rebuilt a V8 engine as part of an Engine Rebuild class I took at a community college while in high school. I still handle oil changes and brake jobs on my family's cars — plenty of the frustrating, hands-on troubleshooting from that class has come in handy since.</p>
+        </div>
+      </div>
+
+      <div class="project project-wide">
+        <div>
+          <p class="project-tag">3D-PRINTED · TRACK-TESTED</p>
+          <h3>Batmobile Build</h3>
+          <p>Designed and 3D-printed a Hot Wheels-sized Batmobile with a project partner. It had to run down a track, and we had to calculate and estimate how far it would travel.</p>
+        </div>
+        <div class="photo-grid">
+          <div class="photo-grid-item">
+            <div class="photo-slot" data-src="assets/images/batmobile-1.jpg">
+              <div class="photo-placeholder"><span class="ph-code">IMG — 05</span><span class="ph-text">assets/images/<br>batmobile-1.jpg</span></div>
+            </div>
+            <p class="caption-line">caption — write about this photo here</p>
+          </div>
+          <div class="photo-grid-item">
+            <div class="photo-slot" data-src="assets/images/batmobile-2.jpg">
+              <div class="photo-placeholder"><span class="ph-code">IMG — 06</span><span class="ph-text">assets/images/<br>batmobile-2.jpg</span></div>
+            </div>
+            <p class="caption-line">caption — write about this photo here</p>
+          </div>
+          <div class="photo-grid-item">
+            <div class="photo-slot" data-src="assets/images/batmobile-3.jpg">
+              <div class="photo-placeholder"><span class="ph-code">IMG — 07</span><span class="ph-text">assets/images/<br>batmobile-3.jpg</span></div>
+            </div>
+            <p class="caption-line">caption — write about this photo here</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GET TO KNOW ME -->
+    <section class="panel" id="panel-know">
+      <p class="eyebrow">SHEET 04 — OFF THE CLOCK</p>
+      <h2 class="section-title">Get to know me.</h2>
+      <p class="lede">Okay, guard down. Everything above this tab is the professional cut. This is the rest of me.</p>
+      <ul class="fact-list">
+        <li>I will absolutely tell you all about the wind turbine gear failure if you let me — I think about material selection more than is probably normal.</li>
+        <li>I took an engine rebuild class in high school just to fully tear down and rebuild a V8. Now I do oil changes and brakes for the family — with plenty of frustrating trial and error along the way.</li>
+        <li>I keep it professional in professional settings, but the second I'm talking shop with another Hispanic or Latino engineer, the Spanglish comes right out.</li>
+        <li>I'd rather be on a manufacturing floor talking to the people running the line than in a meeting about the line.</li>
+        <li>Yes, I once had to calculate how far a 3D-printed, Hot Wheels-sized Batmobile would travel down a track. It was a great day.</li>
+        <li>Ask me about Al Éxito or SHPE — I will talk your ear off about growing our meetings from 20 people to 60+.</li>
+        <li>Yes, this website has a title block. No, I don't think that's excessive.</li>
+      </ul>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="panel" id="panel-contact">
+      <p class="eyebrow">SHEET 05 — CONTACT</p>
+      <h2 class="section-title">Let's talk.</h2>
+      <p class="lede">Recruiters, hiring managers, fellow first-gen engineers — reach out.</p>
+      <div style="margin-top:22px; max-width:480px;">
+        <div class="field-row"><span class="field-key">EMAIL</span><span class="kevyn073@iastate.edu">__________________________</span></div>
+        <div class="field-row"><span class="field-key">LINKEDIN</span><span class="https://www.linkedin.com/in/kevyn06/">__________________________</span></div>
+        <div class="field-row"><span class="field-key">PHONE</span><span class="712-899-1059">__________________________ (optional)</span></div>
+        <div class="field-row"><span class="field-key">RESUME</span><span class="field-blank">link to resume PDF here</span></div>
+      </div>
+      <p class="contact-note">Fill in the blanks above in index.html — search for "SHEET 05" in the file to find this section.</p>
+    </section>
+  </main>
+
+  <footer>DIMENSIONS IN GOOD FAITH · TOLERANCES SUBJECT TO CHANGE UPON GRADUATION</footer>
+</div>
+
+<script>
+  // To add a song: paste the song's Spotify link between the quotes for spotifyUrl.
+  // Get it in Spotify: open the song → Share → Copy Song Link. Paste the whole thing, e.g.
+  // spotifyUrl: "https://open.spotify.com/track/1a2b3c4d5e6f7g8h9i0j"
+  const tabs = {
+    welcome:    { sheet:"01 OF 05", title:"WELCOME",     rev:"A",        role:"Mechanical Engineering — Iowa State University", accent:"#E8112D", scale:"1:1",             track:"Dámaso",                 spotifyUrl:"https://open.spotify.com/track/7yAwyQ2np0KRjeXsGwirez?si=d231bf9cdc3847c4" },
+    background: { sheet:"02 OF 05", title:"MY STORY",     rev:"A",        role:"First-Gen · Bilingual · Iowa State University",   accent:"#E8112D", scale:"1:1",             track:"Chilanga Banda",         spotifyUrl:"https://open.spotify.com/track/3y7fhqxcbr80XJqw0tmsXd?si=57efbfba0a084d0b" },
+    projects:   { sheet:"03 OF 05", title:"PROJECTS",    rev:"B",        role:"Wind Turbines · Diagnostics · Teardowns",         accent:"#E8112D", scale:"1:1",             track:"El Ingeniero",           spotifyUrl:"https://open.spotify.com/track/1CSdO0YWuENf6lMjmPk62G?si=ae88648a2ba74c07" },
+    know:       { sheet:"04 OF 05", title:"OFF DUTY",    rev:"OFF-DUTY", role:"Same guy, fewer filters",                         accent:"#F4B93C", scale:"AMAZING PERSON",  track:"Borracho y Escandaloso", spotifyUrl:"https://open.spotify.com/track/429H8FvJH0sHJdD9D8s5ui?si=8ae99a80476c4fd0" },
+    contact:    { sheet:"05 OF 05", title:"CONTACT",     rev:"A",        role:"Let's talk.",                                     accent:"#E8112D", scale:"1:1",             track:"Hablemos",               spotifyUrl:"https://open.spotify.com/track/71aT33Muvsuim800OqZ0st?si=5c641f03368e459e" },
+  };
+
+  const audioEmpty = document.getElementById('audio-empty');
+  const audioSong = document.getElementById('audio-song');
+  const audioFrame = document.getElementById('audio-frame');
+
+  function spotifyEmbedSrc(url){
+    if(!url) return null;
+    const m = url.match(/track\/([a-zA-Z0-9]+)/);
+    return m ? `https://open.spotify.com/embed/track/${m[1]}?utm_source=generate&theme=0` : null;
+  }
+
+  function setTab(name){
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+
+    const t = tabs[name];
+    document.getElementById('tb-sheet').textContent = t.sheet;
+    document.getElementById('tb-title').textContent = t.title;
+    document.getElementById('tb-rev').textContent = t.rev;
+    document.getElementById('tb-scale').textContent = t.scale;
+    document.getElementById('tb-role').textContent = t.role;
+    document.documentElement.style.setProperty('--accent', t.accent);
+
+    const embedSrc = spotifyEmbedSrc(t.spotifyUrl);
+    if(embedSrc){
+      audioFrame.src = embedSrc;
+      audioFrame.style.display = 'block';
+      audioEmpty.style.display = 'none';
+    } else {
+      audioFrame.src = '';
+      audioFrame.style.display = 'none';
+      audioEmpty.style.display = 'block';
+      audioSong.textContent = t.track;
+    }
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => setTab(btn.dataset.tab));
+  });
+
+  // photo/logo slots — load quietly, fall back to placeholder if missing
+  document.querySelectorAll('.photo-slot, .logo-slot').forEach(slot => {
+    const src = slot.dataset.src;
+    if(!src) return;
+    const img = new Image();
+    img.onload = () => { slot.style.backgroundImage = `url(${src})`; slot.classList.add('has-photo'); };
+    img.src = src;
+  });
+
+  setTab('welcome');
+</script>
+</body>
+</html>
